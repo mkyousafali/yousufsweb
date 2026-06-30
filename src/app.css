@@ -1,0 +1,243 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* ────────────────────────────────────────────────────────── */
+/* Root & Base Resets                                         */
+/* ────────────────────────────────────────────────────────── */
+:root {
+  color-scheme: dark;
+  --scrollbar-track: #0d0d1a;
+  --scrollbar-thumb: #1e1e2e;
+  --scrollbar-thumb-hover: #2e2e4e;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-os-bg text-os-text font-sans antialiased;
+  min-height: 100dvh;
+  overflow-x: hidden;
+}
+
+/* ────────────────────────────────────────────────────────── */
+/* Custom Scrollbar (Webkit)                                  */
+/* ────────────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
+
+/* ────────────────────────────────────────────────────────── */
+/* Selection                                                  */
+/* ────────────────────────────────────────────────────────── */
+::selection {
+  background: rgba(0, 212, 255, 0.2);
+  color: #e2e8f0;
+}
+
+/* ────────────────────────────────────────────────────────── */
+/* Grid Background Pattern                                    */
+/* ────────────────────────────────────────────────────────── */
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(0, 212, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 212, 255, 0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* ────────────────────────────────────────────────────────── */
+/* Window OS Utilities                                        */
+/* ────────────────────────────────────────────────────────── */
+.app-window {
+  @apply absolute bg-os-window border border-os-border rounded-lg overflow-hidden flex flex-col;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.04);
+  transition: box-shadow 0.2s ease;
+  will-change: transform;
+}
+
+/* Dark-theme select dropdown */
+select option, select optgroup {
+  background-color: #0d0d1a;
+  color: #e2e8f0;
+}
+
+.app-window:focus-within,
+.app-window.active {
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(0, 212, 255, 0.15);
+}
+
+.win-titlebar {
+  @apply flex items-center gap-2 px-3 py-2 bg-os-titlebar border-b border-os-border select-none cursor-grab flex-shrink-0;
+  min-height: 36px;
+}
+
+.win-titlebar:active {
+  cursor: grabbing;
+}
+
+.win-body {
+  @apply flex-1 overflow-auto;
+  min-height: 0;
+}
+
+.win-controls {
+  @apply flex items-center gap-1 ml-auto;
+}
+
+.win-btn {
+  @apply w-6 h-6 rounded flex items-center justify-center text-xs transition-all;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+}
+
+.win-btn.close {
+  @apply hover:bg-os-danger/90 hover:text-white text-os-muted;
+}
+.win-btn.minimize {
+  @apply hover:bg-os-warn/80 hover:text-os-bg text-os-muted;
+}
+.win-btn.maximize {
+  @apply hover:bg-os-success/80 hover:text-os-bg text-os-muted;
+}
+
+/* ────────────────────────────────────────────────────────── */
+/* Resize Handles                                             */
+/* ────────────────────────────────────────────────────────── */
+.resize-handle {
+  position: absolute;
+  z-index: 10;
+}
+.resize-n  { top: 0; left: 4px; right: 4px; height: 4px; cursor: n-resize; }
+.resize-s  { bottom: 0; left: 4px; right: 4px; height: 4px; cursor: s-resize; }
+.resize-e  { top: 4px; right: 0; bottom: 4px; width: 4px; cursor: e-resize; }
+.resize-w  { top: 4px; left: 0; bottom: 4px; width: 4px; cursor: w-resize; }
+.resize-ne { top: 0; right: 0; width: 8px; height: 8px; cursor: ne-resize; }
+.resize-nw { top: 0; left: 0; width: 8px; height: 8px; cursor: nw-resize; }
+.resize-se { bottom: 0; right: 0; width: 8px; height: 8px; cursor: se-resize; }
+.resize-sw { bottom: 0; left: 0; width: 8px; height: 8px; cursor: sw-resize; }
+
+/* ────────────────────────────────────────────────────────── */
+/* Desktop Icon                                              */
+/* ────────────────────────────────────────────────────────── */
+.desktop-icon {
+  @apply flex flex-col items-center gap-1.5 p-2 rounded-lg cursor-pointer select-none;
+  @apply transition-all duration-150;
+  width: 80px;
+}
+.desktop-icon:hover {
+  @apply bg-white/5;
+}
+.desktop-icon.selected {
+  @apply bg-os-accent/10 ring-1 ring-os-accent/30;
+}
+.desktop-icon-img {
+  @apply w-12 h-12 rounded-xl flex items-center justify-center text-2xl;
+  @apply bg-gradient-to-br from-os-surface to-os-surface-2 border border-os-border;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+.desktop-icon span {
+  @apply text-os-text text-xs text-center leading-tight font-medium;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+/* ────────────────────────────────────────────────────────── */
+/* Admin Module Common                                        */
+/* ────────────────────────────────────────────────────────── */
+.module-container {
+  @apply p-4 h-full overflow-y-auto;
+}
+
+.module-header {
+  @apply flex items-center justify-between mb-4;
+}
+
+.module-title {
+  @apply text-os-text font-semibold text-sm;
+}
+
+.data-table {
+  @apply w-full text-xs;
+}
+
+.data-table th {
+  @apply text-left text-os-muted font-mono uppercase tracking-wider py-2 px-3 border-b border-os-border;
+}
+
+.data-table td {
+  @apply py-2.5 px-3 border-b border-os-border/50 text-os-text;
+}
+
+.data-table tr:hover td {
+  @apply bg-white/[0.02];
+}
+
+/* ────────────────────────────────────────────────────────── */
+/* Form Elements                                              */
+/* ────────────────────────────────────────────────────────── */
+.form-input {
+  @apply w-full bg-os-bg border border-os-border rounded px-3 py-2 text-sm text-os-text;
+  @apply placeholder-os-muted focus:outline-none focus:border-os-accent/50 focus:ring-1 focus:ring-os-accent/20;
+  @apply transition-colors;
+}
+
+.form-label {
+  @apply block text-xs font-medium text-os-muted mb-1.5 uppercase tracking-wide;
+}
+
+.btn-primary {
+  @apply bg-os-accent text-os-bg font-semibold text-xs px-4 py-2 rounded;
+  @apply hover:brightness-110 transition-all uppercase tracking-wide;
+  @apply disabled:opacity-40 disabled:cursor-not-allowed;
+}
+
+.btn-ghost {
+  @apply border border-os-border text-os-muted font-medium text-xs px-4 py-2 rounded;
+  @apply hover:border-os-accent/40 hover:text-os-text transition-all;
+}
+
+.btn-danger {
+  @apply bg-os-danger/10 border border-os-danger/30 text-os-danger font-medium text-xs px-4 py-2 rounded;
+  @apply hover:bg-os-danger/20 transition-all;
+}
+
+/* ────────────────────────────────────────────────────────── */
+/* Status Badges                                              */
+/* ────────────────────────────────────────────────────────── */
+.badge {
+  @apply inline-flex items-center px-2 py-0.5 rounded text-xs font-mono;
+}
+.badge-success { @apply bg-os-success/15 text-os-success; }
+.badge-warn    { @apply bg-os-warn/15 text-os-warn; }
+.badge-danger  { @apply bg-os-danger/15 text-os-danger; }
+.badge-muted   { @apply bg-os-muted/15 text-os-muted; }
+.badge-accent  { @apply bg-os-accent/15 text-os-accent; }
+
+/* ────────────────────────────────────────────────────────── */
+/* Glow Text                                                  */
+/* ────────────────────────────────────────────────────────── */
+.text-glow-cyan {
+  text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+}
+.text-glow-purple {
+  text-shadow: 0 0 20px rgba(124, 58, 237, 0.5);
+}

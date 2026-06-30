@@ -1,0 +1,34 @@
+{
+  "name": "yousufweb",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+    "init": "node INITIALIZER_SCRIPT.js"
+  },
+  "devDependencies": {
+    "@sveltejs/adapter-vercel": "^5.3.0",
+    "@sveltejs/kit": "^2.5.0",
+    "@sveltejs/vite-plugin-svelte": "^3.1.0",
+    "@vite-pwa/sveltekit": "^0.6.0",
+    "autoprefixer": "^10.4.19",
+    "dotenv": "^17.4.2",
+    "pg": "^8.22.0",
+    "postcss": "^8.4.38",
+    "svelte": "^4.2.15",
+    "svelte-check": "^3.7.0",
+    "tailwindcss": "^3.4.3",
+    "typescript": "^5.4.5",
+    "vite": "^5.2.10"
+  },
+  "dependencies": {
+    "@supabase/ssr": "^0.12.0",
+    "@supabase/supabase-js": "^2.108.2",
+    "vite-plugin-pwa": "^1.3.0"
+  },
+  "type": "module"
+}
