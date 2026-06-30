@@ -4,19 +4,17 @@
  * Uses a fresh connection per query — compatible with Vercel serverless.
  */
 import pg from 'pg';
-import {
-  DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWORD
-} from '$env/static/private';
+import { env } from '$env/dynamic/private';
 
 const { Client } = pg;
 
 function makeClient() {
   return new Client({
-    host:     DB_HOST,
-    port:     Number(DB_PORT) || 5432,
-    database: DB_NAME || 'postgres',
-    user:     DB_USER,
-    password: DB_PASSWORD,
+    host:     env.DB_HOST,
+    port:     Number(env.DB_PORT) || 5432,
+    database: env.DB_NAME || 'postgres',
+    user:     env.DB_USER,
+    password: env.DB_PASSWORD,
     ssl:      { rejectUnauthorized: false },
     connectionTimeoutMillis: 10000,
     query_timeout:           15000

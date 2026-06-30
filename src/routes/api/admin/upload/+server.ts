@@ -3,7 +3,7 @@ import type { RequestHandler } from './$types';
 import { query } from '$lib/server/db';
 import { createClient } from '@supabase/supabase-js';
 import { PUBLIC_SUPABASE_URL } from '$env/static/public';
-import { SUPABASE_SERVICE_ROLE_KEY } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 
 /**
  * POST /api/admin/upload
@@ -19,7 +19,7 @@ export const POST: RequestHandler = async ({ request, locals: { safeGetSession }
   if (!session || !user) error(401, 'Unauthorized');
 
   // Use service role client for storage operations (bypasses RLS/policy restrictions)
-  const adminClient = createClient(PUBLIC_SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
+  const adminClient = createClient(PUBLIC_SUPABASE_URL, env.SUPABASE_SERVICE_ROLE_KEY, {
     auth: { autoRefreshToken: false, persistSession: false }
   });
 
