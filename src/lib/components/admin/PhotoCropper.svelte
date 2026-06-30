@@ -20,7 +20,7 @@
 
   let imgNatW  = 0;
   let imgNatH  = 0;
-  let imgEl    = new Image();
+  let imgEl: HTMLImageElement;
 
   // container dimensions
   const FRAME_W = 300;
@@ -127,6 +127,7 @@
   }
 
   onMount(() => {
+    imgEl = new Image();
     imgEl.onload = () => {
       imgNatW = imgEl.naturalWidth;
       imgNatH = imgEl.naturalHeight;
