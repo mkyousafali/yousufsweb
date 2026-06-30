@@ -8,7 +8,8 @@ const config = {
     adapter: adapter({
       runtime: 'nodejs20.x',
       regions: ['iad1'],
-      split: false
+      split: false,
+      external: ['pg']
     }),
     alias: {
       $lib: './src/lib'

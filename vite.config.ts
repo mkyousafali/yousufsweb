@@ -11,6 +11,9 @@ export default defineConfig({
     port: 5173,
     strictPort: false
   },
+  ssr: {
+    external: ['pg', 'pg-native']
+  },
   plugins: [
     sveltekit(),
     SvelteKitPWA({
